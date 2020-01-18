@@ -8,47 +8,73 @@ from hashtables import (HashTable,
 
 def get_indices_of_item_weights(weights, length, limit):
     ht = HashTable(16)
+    count = 0
+    result = []
     
-    if len(weights) < 2:
+    if length < 2:
         return None
     else:
-        for index in weights:
-          
-            hash_table_insert(ht, index, index)
+        for idx, val in enumerate(weights):
+            hash_table_insert(ht, val, idx)
+            count += 1
 
-    count = 0
-    answer = ()
-    result = []
-
-    for key in ht.storage:
-        if key is None:
-            continue
-        elif key.next is None:
-            index = key.key
-            value = key.value
-            print(index, "index")
-            print(value, "stored value")
+    if count == length:
+        for i in weights:
             
-        else:
-            current_key = key
-            while True:
-                index = current_key.key
-                value = current_key.value
-                print(index, "index")
-                print(value, "stored value")
-                if current_key.next is None:
-                    break
-                else:
-                    current_key = current_key.next
+            check = limit - i
+            print(i, "i")
+            print(check, "check")
+            index = hash_table_retrieve(ht, check)
+            if index is not None:
+                result.append(index)
+              
+        
+    answer_arr = sorted(result, reverse=True)
+    answer = tuple(answer_arr) 
+    return answer
+
+
+    # def print_answer(answer):
+    #     if answer is not None:
+    #         print(str(answer[0]) + " " + str(answer[1]))
+    #     else:
+    #         print("None")
+    
+    # print_answer(answer)
+
+# test = get_indices_of_item_weights([4,4], 2, 8)
+# print(test)
+# print(test[0])
+# print(test[1])
+
+weights_3 = [4, 6, 10, 15, 16]
+answer_3 = get_indices_of_item_weights(weights_3, 5, 21)
+print(answer_3)
+# print(answer_3[0])
+# print(answer_3[1])
+    # self.assertTrue(answer_3[0] == 3)
+    # self.assertTrue(answer_3[1] == 1)
+
+
+# for key in ht.storage:
+#         if key is None:
+#             continue
+#         elif key.next is None:
+#             index = key.key
+#             value = key.value
+#             print(index, "index")
+#             print(value, "stored value")
+            
+#         else:
+#             current_key = key
+#             while True:
+#                 index = current_key.key
+#                 value = current_key.value
+#                 print(index, "index")
+#                 print(value, "stored value")
+#                 if current_key.next is None:
+#                     break
+#                 else:
+#                     current_key = current_key.next
     
     
-    return answer   # return None
-
-
-def print_answer(answer):
-    if answer is not None:
-        print(str(answer[0] + " " + answer[1]))
-    else:
-        print("None")
-
-print(get_indices_of_item_weights([2,2,3,4,5], 2, 4))
