@@ -14,6 +14,7 @@ def get_indices_of_item_weights(weights, length, limit):
     if length < 2:
         return None
     else:
+       
         for idx, val in enumerate(weights):
             hash_table_insert(ht, val, idx)
             count += 1
@@ -27,7 +28,12 @@ def get_indices_of_item_weights(weights, length, limit):
             index = hash_table_retrieve(ht, check)
             if index is not None:
                 result.append(index)
-              
+                print(ht.storage[1])
+   
+    if len(result) == 2:
+        if result[0] == result[1]:
+            result[0] = 0
+
         
     answer_arr = sorted(result, reverse=True)
     answer = tuple(answer_arr) 
@@ -42,14 +48,14 @@ def get_indices_of_item_weights(weights, length, limit):
     
     # print_answer(answer)
 
-# test = get_indices_of_item_weights([4,4], 2, 8)
-# print(test)
+test = get_indices_of_item_weights([4,4], 2, 8)
+print(test)
 # print(test[0])
 # print(test[1])
 
-weights_3 = [4, 6, 10, 15, 16]
-answer_3 = get_indices_of_item_weights(weights_3, 5, 21)
-print(answer_3)
+# weights_3 = [4, 6, 10, 15, 16]
+# answer_3 = get_indices_of_item_weights(weights_3, 5, 21)
+# print(answer_3)
 # print(answer_3[0])
 # print(answer_3[1])
     # self.assertTrue(answer_3[0] == 3)
