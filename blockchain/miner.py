@@ -1,5 +1,6 @@
 import hashlib
 import requests
+import json
 
 import sys
 
@@ -23,11 +24,22 @@ def proof_of_work(last_proof):
     start = timer()
 
     print("Searching for next proof")
-    proof = 0
-    #  TODO: Your code here
 
-    print("Proof found: " + str(proof) + " in " + str(timer() - start))
+    
+    #  TODO: Your code here
+    # block_string = json.dumps(last_proof)
+    # p = f"{last_proof}".encode()
+    # last_6 = p[-6:]
+    # result = hashlib.sha256(last_6).hexdigest()
+    # proof = result[-6:]
+
+    block_string = json.dumps(last_proof)
+    proof = 0
+    while valid_proof(block_string, proof) is False:
+        proof += 1
+    
     return proof
+  
 
 
 def valid_proof(last_hash, proof):
@@ -39,8 +51,16 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...AE9123456, new hash 123456E88...
     """
 
-    # TODO: Your code here!
-    pass
+    guess = f"{proof}{last_hash}".encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    last = f"{last_hash}".encode()
+    last_h = hashlib.sha256(last).hexdigest()
+    
+    # print(f"guess_hash {guess_hash[:6]}, last_h {last_h[-6:]}")
+
+    return guess_hash[:6] == last_h[-6:]
+    
+ 
 
 
 if __name__ == '__main__':
@@ -70,11 +90,14 @@ if __name__ == '__main__':
 
         post_data = {"proof": new_proof,
                      "id": id}
-
+        print(post_data, "POST DATA")
         r = requests.post(url=node + "/mine", json=post_data)
         data = r.json()
         if data.get('message') == 'New Block Forged':
             coins_mined += 1
             print("Total coins mined: " + str(coins_mined))
         else:
+
+            print('help')
             print(data.get('message'))
+        

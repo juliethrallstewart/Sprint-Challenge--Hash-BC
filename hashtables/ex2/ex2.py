@@ -68,32 +68,3 @@ expected = ["LAX", "SFO", "BHM", "FLG", "XNA", "SAP",
 result = reconstruct_trip(tickets, 10)
 print(result, "this is the route")
 
-# def reconstruct_trip(tickets, length):
-#     hashtable = HashTable(length)
-#     route = [None] * length
-#     count = 0
-
-#     prev_destination = [0]
-#     # print(prev_destination, "prev destination")
-#     for i in tickets:
-#         print(i.source, "line 23")
-#         if i.source == "NONE":
-#             print(i.source, "line 25")
-#             hash_table_insert(hashtable, i.source,i.destination)
-#             prev_destination[0] = i.destination
-#             print(prev_destination, "line 27")
-#             route[count] = prev_destination[0]
-#             count += 1
-#             print(count, "count")
-#             continue
-  
-#         elif i.source == prev_destination[0]:
-#             print(i.source, "i source")
-#             print(prev_destination, "prev dest")
-#             hash_table_insert(hashtable, i.source, i.destination)
-#             prev_destination[0] = i.destination
-#             route[count] = prev_destination[0]
-#             count += 1
-#             continue
-    
-#     return route
