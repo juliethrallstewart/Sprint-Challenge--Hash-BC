@@ -33,9 +33,10 @@ def proof_of_work(last_proof):
     # result = hashlib.sha256(last_6).hexdigest()
     # proof = result[-6:]
 
-    block_string = json.dumps(last_proof)
+    # block_string = json.dumps(last_proof)
     proof = 0
-    while valid_proof(block_string, proof) is False:
+    
+    while valid_proof(last_proof, proof) is False:
         proof += 1
     
     return proof
@@ -51,7 +52,7 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...AE9123456, new hash 123456E88...
     """
 
-    guess = f"{proof}{last_hash}".encode()
+    guess = f"{proof}".encode()
     guess_hash = hashlib.sha256(guess).hexdigest()
     last = f"{last_hash}".encode()
     last_h = hashlib.sha256(last).hexdigest()
